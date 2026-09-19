@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Events - Hope &amp; Harmony Charity Events</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="app-nav-host" class="site-header"></header>
+
+<main class="container">
+
+    <section>
+        <div class="section-title">
+            <h2>Search Charity Events</h2>
+            <p>Find events by date, location and/or category - use one filter or combine several.</p>
+        </div>
+
+        <form id="event-search-form" class="search-form">
+            <div class="field">
+                <label for="search-date">Date</label>
+                <input type="date" id="search-date" name="date">
+            </div>
+
+            <div class="field">
+                <label for="search-location">Location</label>
+                <input type="text" id="search-location" name="location" placeholder="e.g. Sydney, Parramatta">
+            </div>
+
+            <div class="field">
+                <label for="search-category">Category</label>
+                <select id="search-category" name="category">
+                    <option value="">All categories</option>
+                </select>
+            </div>
+
+            <div class="field form-actions">
+                <button type="submit" class="btn-primary">Search</button>
+                <button type="button" id="reset-search-btn" class="btn-secondary">Clear Filters</button>
+            </div>
+        </form>
+
+        <div id="search-feedback"></div>
+    </section>
+
+    <section>
+        <p id="search-results-summary" class="results-count"></p>
+        <div id="search-results-list" class="event-grid"></div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        &copy; 2026 Hope &amp; Harmony Foundation. Built for PROG2002 Assessment 2 - a fictional case study, not a real charity.
+    </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>
