@@ -1,0 +1,21 @@
+{
+  "name": "charityevents-api",
+  "version": "1.0.0",
+  "description": "REST API for the Charity Events website (PROG2002 Assessment 2)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": ["charityevents", "express", "mysql2", "prog2002"],
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
