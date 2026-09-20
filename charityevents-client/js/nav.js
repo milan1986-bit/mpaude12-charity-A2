@@ -1,7 +1,3 @@
-// nav.js
-// Builds the shared site header/navigation using DOM manipulation so the
-// same markup and "active page" highlighting is reused on every page.
-
 function buildNavigation(activePage) {
     const navHost = document.getElementById('app-nav-host');
     if (!navHost) return;
