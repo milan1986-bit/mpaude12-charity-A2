@@ -50,3 +50,23 @@ CREATE TABLE events (
         FOREIGN KEY (category_id) REFERENCES categories(category_id)
         ON DELETE RESTRICT
 );
+
+INSERT INTO organisations (name, mission, description, email, phone, website, logo_url) VALUES
+('Hope & Harmony Foundation',
+ 'Raising funds and awareness to support families facing hardship in our community.',
+ 'Hope & Harmony Foundation is a local charitable organisation that has run community fundraising events for over a decade, channelling donations directly into housing, food relief and education programs.',
+ 'contact@hopeharmony.org', '(02) 5550 1234', 'https://www.hopeharmony.org',
+ 'images/org-hope-harmony.png'),
+('Bright Futures Youth Trust',
+ 'Empowering young people through sport, arts and community events.',
+ 'Bright Futures Youth Trust organises inclusive community events that fund scholarships, mentoring and recreational programs for disadvantaged youth.',
+ 'hello@brightfutures.org', '(02) 5550 5678', 'https://www.brightfutures.org',
+ 'images/org-bright-futures.png');
+
+INSERT INTO categories (name, description) VALUES
+('Fun Run', 'Timed or untimed running/walking events for all fitness levels'),
+('Gala Dinner', 'Formal dinner events with programs, speeches and auctions'),
+('Silent Auction', 'Bid-based fundraising events for donated items and experiences'),
+('Concert', 'Live music events held to raise funds for a cause'),
+('Charity Walk', 'Community walking events supporting a specific cause'),
+('Community Fair', 'Family-friendly fairs and markets raising funds for the community');
