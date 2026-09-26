@@ -71,6 +71,7 @@ function mapEventRecord(row) {
     };
 }
 
+// homepage listing - active events today or later
 app.get('/api/events', (req, res) => {
     const listQuery = `
         SELECT ${EVENT_SELECT_FIELDS}
@@ -97,6 +98,70 @@ app.get('/api/categories', (req, res) => {
         .catch((queryError) => {
             console.error('Category list query failed:', queryError.message);
             res.status(500).json({ error: 'Could not load categories.' });
+        });
+});
+
+// filters by date / location / category, any combination
+app.get('/api/events/search', (req, res) => {
+    const { date, location, category } = req.query;
+
+    let searchQuery = `
+        SELECT ${EVENT_SELECT_FIELDS}
+        ${EVENT_TABLE_JOINS}
+        WHERE e.status = 'active'
+    `;
+    const queryParams = [];
+
+    if (date) {
+        searchQuery += ' AND e.event_date = ?';
+        queryParams.push(date);
+    }
+
+    if (location) {
+        searchQuery += ' AND (e.location LIKE ? OR e.address LIKE ?)';
+        queryParams.push(`%${location}%`, `%${location}%`);
+    }
+
+    if (category) {
+        searchQuery += ' AND c.category_id = ?';
+        queryParams.push(category);
+    }
+
+    searchQuery += ' ORDER BY e.event_date ASC, e.event_time ASC';
+
+    dbPool.query(searchQuery, queryParams)
+        .then(([rows]) => {
+            res.status(200).json(rows.map(mapEventRecord));
+        })
+        .catch((queryError) => {
+            console.error('Event search query failed:', queryError.message);
+            res.status(500).json({ error: 'Search failed, please try again.' });
+        });
+});
+
+app.get('/api/events/:id', (req, res) => {
+    const requestedEventId = Number(req.params.id);
+
+    if (!Number.isInteger(requestedEventId) || requestedEventId <= 0) {
+        return res.status(400).json({ error: 'Invalid event id supplied.' });
+    }
+
+    const detailQuery = `
+        SELECT ${EVENT_SELECT_FIELDS}
+        ${EVENT_TABLE_JOINS}
+        WHERE e.event_id = ? AND e.status = 'active'
+    `;
+
+    dbPool.query(detailQuery, [requestedEventId])
+        .then(([rows]) => {
+            if (rows.length === 0) {
+                return res.status(404).json({ error: 'Event not found or is no longer available.' });
+            }
+            res.status(200).json(mapEventRecord(rows[0]));
+        })
+        .catch((queryError) => {
+            console.error('Event detail query failed:', queryError.message);
+            res.status(500).json({ error: 'Could not load this event.' });
         });
 });
 
