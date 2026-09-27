@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mysql = require('mysql2');
-
+// connection code
 const connectionPool = mysql.createPool({
     database: process.env.DB_NAME || 'charityevents_db',
     host: process.env.DB_HOST || 'localhost',
